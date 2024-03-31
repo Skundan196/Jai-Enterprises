@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-xrFEn3f6EGYL0guqonCgHS4uZvs6f7AZGd+DzirvRjds8lhB6u5PRRWEqTQuDKBzQti7WpQV2+n+CEg3kF4Z+g=="
+        crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+        }
+
+        .banner-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .banner-text p {
+            font-size: 1.5rem;
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .product img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .quantity {
+            width: 50px;
+            padding: 5px;
+            margin-right: 5px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .cart-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin: 10px;
+            display: flex;
+            /* Align icon and text horizontally */
+            align-items: center;
+            /* Center icon and text vertically */
+        }
+
+        .cart-button i {
+            margin-right: 5px;
+            /* Adjust space between icon and text */
+        }
+
+        .cart h2 {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .cart-items {
+            margin-top: 10px;
+        }
+
+        .cart-item {
+            border-bottom: 1px solid #bdc3c7;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item img {
+            width: 40px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .search-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container input[type="text"] {
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #0665f5;
+            border-radius: 5px 0 0 5px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-container button {
+            padding: 8px;
+            border: 1px solid #0665f5;
+            background-color: #0665f5;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            outline: none;
+        }
+
+        .search-container button:hover {
+            background-color: #044ec6;
+        }
+
+        .input-group {
+            position: fixed;
+            top: 60px; /* Adjust as needed */
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group input[type="text"] {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        footer {
+            background-color: white;
+            /* Set the background color */
+            color: black;
+            /* Set the text color */
+            text-align: center;
+            padding: 10px;
+        }
+
+        footer p {
+            margin: 0;
+            /* Remove default margin for the paragraph */
+        }
+
+ 
+.invoice {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.invoice h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.store-info {
+  margin-bottom: 20px;
+}
+
+.items {
+  border: 1px solid #ccc;
+}
+
+.item {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+.item img {
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.print-button {
+  display: block;
+  width: 100px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+    </style>
+    <title>Jai Enterprises</title>
+</head>
+
+<body>
+   
+
+    <!-- Banner -->
+    <div class="banner">
+        <img
+            src="https://m.media-amazon.com/images/S/stores-image-uploads-eu-prod/6/AmazonStores/A21TJRUUN4KGV/9456a828ee88dc9a18fe0a8560d28318.w3000.h600.png"
+            alt="Banner Image">
+        <div class="banner-text">
+
+        </div>
+    </div>
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="searchProducts()"><i class="fas fa-search">Search</i></button>
+    </div>
+
+    <!-- Cart Button with FontAwesome icon -->
+    <button class="cart-button" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i> Cart
+    </button>
+   
+    
+    <!-- Product Listing -->
+    <section class="products">
+        <!-- Sample Product -->
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/41pduGOVopL._SX300_SY300_QL70_FMwebp_.jpg"
+                alt="Product 1">
+            <h3>Kellogg's Chocos 385g</h3>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+        <!-- Sample Product -->
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/717OXDQY87L._SX679_.jpg" alt="Product 2">
+            <h3>Pringles Tangy Twist</h3>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+        <!-- Sample Product -->
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/81Z1KlAo-pL._SX679_.jpg" alt="Product 3">
+            <h3>Corn Flakes 1.035kg</h3>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+        <!-- Sample Product -->
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/41OklN+TzJL._SY300_SX300_.jpg" alt="Product 4">
+            <h3>Oats 850g</h3>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+         <!-- Sample Product -->
+         <div class="product">
+            <img src="https://m.media-amazon.com/images/I/51GngLwzzkL.jpg" alt="Product 5">
+            <h3>Pringles Masala Tadka</h3>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+        <!-- Sample Product -->
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/71EN7eB5OTL._SL1200_.jpg" alt="Product 6">
+            <h3>Muesli Fruit & Nut 240g</h3>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/91QFahG+N2L._SX679_.jpg" alt="Product 7">
+            <h3>Chocos Fills 250g</h3>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/91i9rdecBvL._SX679_.jpg" alt="Product 8">
+            <h3>Muesli Fruit & Nut 500g</h3>
+            <input type="number" class="quantity" value="1" min="1">
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+    
+        <!-- Add more products -->
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+   <br>
+   <br>
+   <br>
+  
+    <!-- Shopping Cart -->
+    <div class="invoice">
+        <h1>Invoice</h1>
+    <aside class="cart">
+        <div class="cart-items">
+            
+            <!-- Cart items will be dynamically added here using JavaScript -->
+        </div>
+        
+
+        <div class="input-group">
+            <input type="text" id="storeName" placeholder="Enter Store Name" oninput="updateCart()">
+            <input type="text" id="date" placeholder="Enter Date (YYYY-MM-DD)" oninput="updateCart()">
+        </div>
+
+        <div class="cart" id="cart">
+            <p>Store Name: <span id="cartStoreName"></span></p>
+            <p>Date: <span id="cartDate"></span></p>
+        </div>
+
+       
+       
+              </div>
+              <!-- Add more items here -->
+            </div>
+          </div>
+          <button class="print-button" onclick="window.print()">Print Invoice</button>
+    </aside>
+    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-fbe635f5-a428-4f39-857e-436ab894b43f" data-elfsight-app-lazy></div>
+    <footer>
+        <p>&copy; 2024 Jai Enterprises. All rights reserved.</p>
+    </footer>
+
+    <script>
+
+
+
+    function printCart() {
+    const cart = document.querySelector('.cart');
+    const printContents = cart.innerHTML;
+    const originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+
+function searchProducts() {
+    const input = document.getElementById("searchInput");
+    const filter = input.value.toUpperCase();
+    const products = document.querySelectorAll('.product');
+
+    products.forEach(product => {
+        const productName = product.querySelector('h3').textContent.toUpperCase();
+        if (productName.indexOf(filter) > -1) {
+            product.style.display = "";
+        } else {
+            product.style.display = "none";
+        }
+    });
+}
+
+// Banner images array
+const bannerImages = [
+    "https://m.media-amazon.com/images/S/stores-image-uploads-eu-prod/7/AmazonStores/A21TJRUUN4KGV/13b608d032a4b87cefcb9824ec8fc348.w3000.h600.png",
+    "https://m.media-amazon.com/images/S/stores-image-uploads-eu-prod/6/AmazonStores/A21TJRUUN4KGV/9456a828ee88dc9a18fe0a8560d28318.w3000.h600.png",
+    "https://m.media-amazon.com/images/S/stores-image-uploads-eu-prod/7/AmazonStores/A21TJRUUN4KGV/82f79ba438f40bf80280cb4d5fbc92d4.w3000.h600.png"
+];
+
+// Banner element
+const banner = document.querySelector('.banner');
+// Banner index
+let bannerIndex = 0;
+
+// Function to change banner image
+function changeBanner() {
+    bannerIndex = (bannerIndex + 1) % bannerImages.length;
+    banner.style.backgroundImage = `url('${bannerImages[bannerIndex]}')`;
+}
+
+// Change banner image every 3 seconds
+setInterval(changeBanner, 3000);
+
+function updateCart() {
+    const storeName = document.getElementById("storeName").value;
+    const date = document.getElementById("date").value;
+    document.getElementById("cartStoreName").textContent = storeName;
+    document.getElementById("cartDate").textContent = date;
+}
+
+function toggleCart() {
+    const cart = document.querySelector('.cart');
+    cart.style.display = cart.style.display === 'none' ? 'block' : 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const products = document.querySelectorAll('.product');
+    const cartItemsContainer = document.querySelector('.cart-items');
+    const generateInvoiceBtn = document.querySelector('.generate-invoice-btn');
+    const invoiceContainer = document.querySelector('.invoice');
+
+    let cartItems = [];
+
+    function updateCart() {
+        cartItemsContainer.innerHTML = '';
+        cartItems.forEach(item => {
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <img src="${item.imageSrc}" alt="${item.name}">
+                <div>
+                    <p>${item.name}</p>
+                    <p>Quantity: ${item.quantity}</p>
+                </div>
+            `;
+            cartItemsContainer.appendChild(cartItem);
+        });
+ 
+        if (cartItems.length > 0) {
+            generateInvoiceBtn.style.display = 'block';
+        } else {
+            generateInvoiceBtn.style.display = 'none';
+        }
+    }
+
+     
+
+    function isProductInStock(product, quantity) {
+        // Implement your stock checking logic here
+        // For demonstration purposes, let's assume all products have unlimited stock
+        return true;
+    }
+
+    products.forEach(product => {
+        const addToCartBtn = product.querySelector('.add-to-cart-btn');
+        const name = product.querySelector('h3').textContent;
+        const imageSrc = product.querySelector('img').src;
+
+        addToCartBtn.addEventListener('click', () => {
+            const quantity = parseInt(product.querySelector('.quantity').value);
+
+            if (isProductInStock(name, quantity)) {
+                const item = {
+                    name,
+                    quantity,
+                    imageSrc
+                };
+
+                cartItems.push(item);
+                updateCart();
+            } else {
+                alert(`Sorry, ${name} is out of stock.`);
+            }
+        });
+    });
+
+});
+</script>
+</body>
+
+</html>
